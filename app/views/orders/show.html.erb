@@ -1,8 +1,44 @@
 <section class="orders-show">
 
   <header class="page-header">
-    <h1>Order #<%= @order.id %></h1>
+    <h1>Order #<%= @order.id %>  </h1>
+    <%=@order.email%>
+  
+    
   </header>
+
+  <div class="panel panel-default items">
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th colspan="2">Product</th>
+          <th>Unit Price</th>
+          <th>Quantity</th>
+          <th>Price</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% total = 0 %>
+      <% @products.each do |item| %>
+        <%= render 'line_item', product: item[:product], quantity: item[:quantity].to_i %>
+        <% total += item[:total_price_cents] %>
+      <% end %>
+    
+      
+      </tbody>
+      <tfoot>
+        <tr>
+          <th colspan="4">
+            TOTAL:
+          </th>
+          <th>
+            <%= humanized_money_with_symbol total / 100.0 %>
+          </th>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
 
   <div class="order-summary jumbotron">
     <h4>Thank you for your order!</h4>

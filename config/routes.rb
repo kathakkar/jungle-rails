@@ -2,8 +2,13 @@ Rails.application.routes.draw do
 
   root to: 'products#index'
 
+  delete '/logout', to: 'sessions#destroy'
+  post '/login' => 'sessions#create'
+
   resources :products, only: [:index, :show]
   resources :categories, only: [:show]
+  
+
 
   resource :cart, only: [:show] do
     post   :add_item
@@ -12,9 +17,17 @@ Rails.application.routes.draw do
 
   resources :orders, only: [:create, :show]
 
+  resources :about, only:[:index]
+  resources :users, only: [:index, :create] 
+  resources :sessions, only: [:index, :create, :destroy]
+  # get '/login' => 'sessions#new'
+  # post '/login' => 'sessions#create'
+  # get '/logout' => 'sessions#destroy'
+
   namespace :admin do
     root to: 'dashboard#show'
     resources :products, except: [:edit, :update, :show]
+    resources :categories
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

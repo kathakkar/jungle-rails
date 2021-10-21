@@ -35,6 +35,11 @@
       </tfoot>
     </table>
   </div>
+  <% if !current_user  %>
+    <% email = 'kvirani@gmail.com'%>
+  <% else%>
+    <% email = current_user.email %>
+  <% end %>
 
   <div class="row">
     <div class="col-xs-12">
@@ -46,7 +51,7 @@
           data-name="Jungle"
           data-description="Khurram Virani's Jungle Order"
           data-locale="auto"
-          data-email="kvirani@gmail.com"
+          data-email="<%= email %>"
           data-currency="cad">
         </script>
       <% end %>
